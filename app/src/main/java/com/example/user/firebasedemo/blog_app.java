@@ -6,6 +6,7 @@ import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,6 +37,7 @@ public class blog_app extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private boolean mProcessLike=false;
+    private TextView mNoti;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,8 @@ public class blog_app extends AppCompatActivity {
                 }
             }
         };
-
+        //mNoti=(TextView) findViewById(R.id.action_notification);
+       // mNoti.setText("11");
         mDatabase= FirebaseDatabase.getInstance().getReference().child("Blog");//BLOG child er under a all data save
         mDatabaseUsers=FirebaseDatabase.getInstance().getReference().child("Users");//users is a child
         mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("Likes");
@@ -190,6 +193,7 @@ public class blog_app extends AppCompatActivity {
                 public void onClick(View view) {
 
                     Log.v("blog_app","Some text");
+
                 }
             });
         }
@@ -213,6 +217,8 @@ public class blog_app extends AppCompatActivity {
                 }
             });
         } */
+
+
         public void setTitle(String title)
         {   //PARAMETER STRING TITLE A THAKBE title a JETA TYPE KORA HOISE
 
@@ -268,6 +274,19 @@ public class blog_app extends AppCompatActivity {
         {
             startActivity(new Intent(blog_app.this,Check.class));
         }
+        if(item.getItemId()==R.id.donation_list)
+        {
+            startActivity(new Intent(blog_app.this,CollectDonate.class));
+        }
+
+if(item.getItemId()==R.id.action_notification)
+{
+    startActivity(new Intent(blog_app.this,MapsActivity.class));
+}
+
+
+
+
         return super.onOptionsItemSelected(item);
     }
 

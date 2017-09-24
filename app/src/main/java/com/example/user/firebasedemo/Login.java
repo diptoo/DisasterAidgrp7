@@ -85,7 +85,7 @@ public class Login extends Activity implements View.OnClickListener{
     private void startLogIn() {
 
         final String email = nEmailField.getText().toString();
-        String password = nPasswordField.getText().toString();
+        final String password = nPasswordField.getText().toString();
 
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
@@ -113,7 +113,9 @@ public class Login extends Activity implements View.OnClickListener{
                    // startActivity(i);
                 }
                 else {
-                    Toast.makeText(Login.this, "Error Login", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, email, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, password, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Login.this, "Error Login", Toast.LENGTH_SHORT).show();
                 }
 
             }

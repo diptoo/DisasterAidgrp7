@@ -73,7 +73,7 @@ public class DonateHome extends AppCompatActivity {
 
                     }
                 });
-                Toast.makeText(DonateHome.this,"dhkse",Toast.LENGTH_LONG).show();
+               // Toast.makeText(DonateHome.this,"dhkse",Toast.LENGTH_LONG).show();
 
             }
         };

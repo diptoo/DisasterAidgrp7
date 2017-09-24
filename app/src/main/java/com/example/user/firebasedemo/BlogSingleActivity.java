@@ -100,6 +100,7 @@ public class BlogSingleActivity extends AppCompatActivity {
                         final EditText edit_desc=(EditText) dialogView.findViewById(R.id.editdesc);
                         edit_image=(ImageButton) dialogView.findViewById(R.id.editimage);
                         final Button Edit_update=(Button)  dialogView.findViewById(R.id.update_btn);
+
                         edit_title.setText(post_title);
                         edit_desc.setText(post_desc);
                         Picasso.with(BlogSingleActivity.this).load(post_image).into(edit_image);
@@ -135,6 +136,7 @@ public class BlogSingleActivity extends AppCompatActivity {
                                             @SuppressWarnings("VisibleForTests") final Uri downloadUri = taskSnapshot.getDownloadUrl();//RETRIEVE THE IMAGE
                                             //STORAGE TO DATABASE
                                             mDatabase.child(mPost_key).child("image").setValue(downloadUri.toString());// image
+                                            startActivity(new Intent(BlogSingleActivity.this,blog_app.class));
                                         }
                                     });
 
@@ -148,6 +150,8 @@ public class BlogSingleActivity extends AppCompatActivity {
 
                         AlertDialog alertDialog = dialogBuilder.create();
                         alertDialog.show();
+
+
 
                     }
                 });

@@ -26,7 +26,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/donator_name"
             android:layout_marginTop="8dp"
             android:background="#004D40"
             android:hint=" Name"
@@ -37,7 +37,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText3"
+            android:id="@+id/donator_address"
             android:layout_marginTop="12dp"
             android:background="#004D40"
             android:hint="Address"
@@ -46,7 +46,7 @@
             android:textColorHint="@android:color/white" />
 
         <EditText
-            android:id="@+id/editcontact"
+            android:id="@+id/donator_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -70,7 +70,9 @@
             android:layout_height="40sp"
             android:layout_marginTop="12dp"
             android:background="#004D40"
-            android:entries="@array/donate_type">
+            android:entries="@array/donate_type"
+            android:id="@+id/donate_type"
+            >
 
         </Spinner>
         <TextView
@@ -88,12 +90,14 @@
             android:layout_height="40sp"
             android:layout_marginTop="12dp"
             android:background="#004D40"
-            android:entries="@array/donate_method">
+            android:entries="@array/donate_method"
+            android:id="@+id/donate_method"
+            >
 
         </Spinner>
 
         <EditText
-            android:id="@+id/acc"
+            android:id="@+id/donator_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -101,7 +105,9 @@
             android:hint="Amount"
             android:padding="12dp"
             android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
+            android:textColorHint="@android:color/white"
+
+            />
 
 
         <Button

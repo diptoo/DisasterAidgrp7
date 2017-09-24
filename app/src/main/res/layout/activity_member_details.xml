@@ -144,12 +144,7 @@
                 />
 
         </LinearLayout>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="edit profile"
-            android:id="@+id/edit_profile"
-            />
+
 
 
 
