@@ -3,10 +3,12 @@ package com.example.user.firebasedemo;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,7 +39,30 @@ public class MyPost extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_blog_app);
+        setContentView(R.layout.activity_my_post);
+
+        BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.action_add:
+                        //Toast.makeText(blog_app.this,"clicked",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MyPost.this,PostActivity.class));
+                        break;
+                    case R.id.icon_home:
+                        //Toast.makeText(blog_app.this,"home",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MyPost.this,blog_app.class));
+                        break;
+                    case R.id.action_person:
+                        startActivity(new Intent(MyPost.this,Check.class));
+                        break;
+                }
+                return true;
+            }
+        });
+
         mAuth= FirebaseAuth.getInstance();
         mAuthListener= new FirebaseAuth.AuthStateListener() {
             @Override
@@ -61,12 +86,16 @@ public class MyPost extends AppCompatActivity {
         String currentUserid=mAuth.getCurrentUser().getUid();
         mDatabaseCurrentUser=FirebaseDatabase.getInstance().getReference().child("Blog");
         mCur=mDatabaseCurrentUser.orderByChild("uid").equalTo(currentUserid);
+
+        //mCur=mDatabaseCurrentUser.orderByChild("title").equalTo(currentUserid);
+
+
         mDatabaseUsers.keepSynced(true);
         mDatabaseLike.keepSynced(true);
         mDatabase.keepSynced(true);
         //LIST VIEW DETAILS
         //blog row te card view cause  which might have different lengths/heights depending on their content (like pictures with descriptions and comments)
-        mBlogList=(RecyclerView) findViewById(R.id.blog_list);//LIST VIEW VABE SHOW KORBE AJONNE
+        mBlogList=(RecyclerView) findViewById(R.id.dinfo);//LIST VIEW VABE SHOW KORBE AJONNE
         mBlogList.setHasFixedSize(true);
         mBlogList.setLayoutManager(new LinearLayoutManager(this));//VERTICAL FORMAT
         //List view end

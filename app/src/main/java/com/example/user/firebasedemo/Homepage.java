@@ -6,15 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
-import android.support.v7.app.AppCompatActivity;
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import android.view.Window;
 
 public class Homepage extends FragmentActivity implements ActionBar.TabListener{
     ActionBar actionbar;
@@ -24,8 +16,8 @@ public class Homepage extends FragmentActivity implements ActionBar.TabListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main1);
-        viewpager = (ViewPager) findViewById(R.id.pager);
+        setContentView(R.layout.activity_main);
+        //viewpager = (ViewPager) findViewById(R.id.pager);
         ft = new FragmentPageAdapter(getSupportFragmentManager());
         actionbar = getActionBar();
         viewpager.setAdapter(ft);

@@ -2,18 +2,22 @@ package com.example.user.firebasedemo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,21 +28,53 @@ import com.squareup.picasso.Picasso;
 public class DonateHome extends AppCompatActivity {
     private RecyclerView mBlogList;//LIST VIEW
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate_home);
+        mAuth=FirebaseAuth.getInstance();
+
+        /*@Override
+        public void onBackPressed()
+        {
+            startActivity(new Intent(DonateHome.this,firstPage.class));
+        } */
+   /*     mAuthListener=new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                if(firebaseAuth.getCurrentUser()==null) {
+                    Toast.makeText(DonateHome.this,"DHUKHSE 2",Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(DonateHome.this, GoogleSign.class));
+
+                }
+            }
+        };
+ */
         mDatabase= FirebaseDatabase.getInstance().getReference().child("Blog");//BLOG child er under a all data save
 
         mBlogList=(RecyclerView) findViewById(R.id.blogdonate_list);//LIST VIEW VABE SHOW KORBE AJONNE
         mBlogList.setHasFixedSize(true);
-        mBlogList.setLayoutManager(new LinearLayoutManager(this));
+       // mBlogList.setLayoutManager(new LinearLayoutManager(this));
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        mBlogList.setLayoutManager(mLayoutManager);
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        startActivity(new Intent(DonateHome.this,firstPage.class));
+    }
     protected void onStart()
     { //blog class
         super.onStart();
-
+      //  mAuth.addAuthStateListener(mAuthListener);
 
         //model class Blog,viewholder view te value set from blog
         FirebaseRecyclerAdapter<Blog,DonateView> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Blog, DonateView>(
@@ -115,6 +151,47 @@ public class DonateHome extends AppCompatActivity {
            post_username.setText(username);
        }
    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //menu resource file read kore
+        getMenuInflater().inflate(R.menu.donate_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()==R.id.action_logout)
+        {
+            logout();
+        }
+
+        /*if(item.getItemId()==R.id.member_details)
+        {
+            startActivity(new Intent(blog_app.this,MemberDetails.class));
+        }
+        if(item.getItemId()==R.id.my_profile)
+        {
+            startActivity(new Intent(blog_app.this,Check.class));
+        }
+        if(item.getItemId()==R.id.donation_list)
+        {
+            startActivity(new Intent(blog_app.this,CollectDonate.class));
+        }
+
+        if(item.getItemId()==R.id.action_notification)
+        {
+            startActivity(new Intent(blog_app.this,blog_app.class));
+        }
+*/
+
+
+
+
+        return super.onOptionsItemSelected(item);
+    }
+    private void logout() {
+        mAuth.signOut();
+        Toast.makeText(DonateHome.this,"Sign out",Toast.LENGTH_LONG).show();
+        startActivity(new Intent(DonateHome.this,firstPage.class));
+    }
     }
 

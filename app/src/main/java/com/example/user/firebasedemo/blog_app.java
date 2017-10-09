@@ -1,9 +1,11 @@
 package com.example.user.firebasedemo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -13,6 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,10 +42,54 @@ public class blog_app extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private boolean mProcessLike=false;
     private TextView mNoti;
+    private EditText mSearch;
+    private ImageButton mSearchNow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_blog_app);
+
+
+
+        mSearch=(EditText) findViewById(R.id.search_id);
+        mSearchNow=(ImageButton) findViewById(R.id.search_now);
+
+
+
+        mSearchNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String search_key=mSearch.getText().toString();
+                //Toast.makeText(blog_app.this,search_key,Toast.LENGTH_LONG).show();
+                Intent SingleBlogIntent=new Intent(blog_app.this,Search.class);
+                SingleBlogIntent.putExtra("search_id",search_key);
+                startActivity(SingleBlogIntent);
+
+            }
+        });
+
+        BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.action_add:
+                        //Toast.makeText(blog_app.this,"clicked",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(blog_app.this,PostActivity.class));
+                        break;
+                    case R.id.icon_home:
+                        //Toast.makeText(blog_app.this,"home",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(blog_app.this,blog_app.class));
+                        break;
+                    case R.id.action_person:
+                        startActivity(new Intent(blog_app.this,Check.class));
+                        break;
+                }
+                return true;
+            }
+        });
 
         mAuth=FirebaseAuth.getInstance();
         mAuthListener= new FirebaseAuth.AuthStateListener() {
@@ -59,8 +107,7 @@ public class blog_app extends AppCompatActivity {
                 }
             }
         };
-        //mNoti=(TextView) findViewById(R.id.action_notification);
-       // mNoti.setText("11");
+
         mDatabase= FirebaseDatabase.getInstance().getReference().child("Blog");//BLOG child er under a all data save
         mDatabaseUsers=FirebaseDatabase.getInstance().getReference().child("Users");//users is a child
         mDatabaseLike=FirebaseDatabase.getInstance().getReference().child("Likes");
@@ -71,11 +118,26 @@ public class blog_app extends AppCompatActivity {
         //blog row te card view cause  which might have different lengths/heights depending on their content (like pictures with descriptions and comments)
         mBlogList=(RecyclerView) findViewById(R.id.blog_list);//LIST VIEW VABE SHOW KORBE AJONNE
         mBlogList.setHasFixedSize(true);
-        mBlogList.setLayoutManager(new LinearLayoutManager(this));//VERTICAL FORMAT
+        //LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        mBlogList.setLayoutManager(mLayoutManager);//VERTICAL FORMAT
+      //  mBlogList.setLayoutManager(new LinearLayoutManager(this));//VERTICAL FORMAT
+
         //List view end
 
        // checkUserExist();
     }
+
+
+    public void onBackPressed()
+    {
+        startActivity(new Intent(blog_app.this,firstPage.class));
+    }
+
+
 
     protected void onStart()
     { //blog class
@@ -98,7 +160,7 @@ public class blog_app extends AppCompatActivity {
                 viewHolder.setDesc(model.getDesc());
                 viewHolder.setImage(getApplicationContext(),model.getImage()); //context Picasso is a library and not an application.application er moto kaj korar jonno
                 viewHolder.setUsername(model.getUsername());
-               // viewHolder.setLikeBtn(post_key);
+                viewHolder.setLikeBtn(post_key);
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -119,7 +181,7 @@ public class blog_app extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if (mProcessLike) {
-                                        Toast.makeText(blog_app.this,"dhukse",Toast.LENGTH_LONG).show();
+                                       // Toast.makeText(blog_app.this,"dhukse",Toast.LENGTH_LONG).show();
                                         if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
 
                                             mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).removeValue();
@@ -197,7 +259,7 @@ public class blog_app extends AppCompatActivity {
                 }
             });
         }
-       /* public void setLikeBtn(final String post_key)
+        public void setLikeBtn(final String post_key)
         {
             mDatabaseLike.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -216,7 +278,7 @@ public class blog_app extends AppCompatActivity {
 
                 }
             });
-        } */
+        }
 
 
         public void setTitle(String title)
@@ -247,7 +309,7 @@ public class blog_app extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //menu resource file read kore
-        getMenuInflater().inflate(R.menu.main_menu,menu);
+        getMenuInflater().inflate(R.menu.main,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -279,10 +341,11 @@ public class blog_app extends AppCompatActivity {
             startActivity(new Intent(blog_app.this,CollectDonate.class));
         }
 
-if(item.getItemId()==R.id.action_notification)
+/*if(item.getItemId()==R.id.action_notification)
 {
-    startActivity(new Intent(blog_app.this,MapsActivity.class));
+    startActivity(new Intent(blog_app.this,Search.class));
 }
+*/
 
 
 

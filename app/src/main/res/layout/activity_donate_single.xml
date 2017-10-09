@@ -29,6 +29,7 @@
                 android:textStyle="bold"
                 android:padding="15dp"
                 android:textSize="16dp"
+
                 />
 
             <TextView
@@ -45,15 +46,10 @@
        android:id="@+id/donate"
        android:layout_marginTop="40dp"
        android:text="Donate"
+       android:textColor="@color/white"
+       android:background="@drawable/button"
+
        />
-      <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:text="Know us"
-          android:layout_marginTop="30dp"
-          android:id="@+id/contact"
-          />
 
 
         </LinearLayout>

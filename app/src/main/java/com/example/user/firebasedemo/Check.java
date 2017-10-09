@@ -1,6 +1,8 @@
 package com.example.user.firebasedemo;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +45,28 @@ public class Check extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
 
+        BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.action_add:
+                       // Toast.makeText(BlogSingleActivity.this,"clicked",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(Check.this,PostActivity.class));
+                        break;
+                    case R.id.icon_home:
+                       // Toast.makeText(BlogSingleActivity.this,"home",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(Check.this,blog_app.class));
+                        break;
+                    case R.id.action_person:
+                        startActivity(new Intent(Check.this,Check.class));
+                        break;
+                }
+                return true;
+            }
+        });
+
         mAuth=FirebaseAuth.getInstance();
 
         mEditProfile=(Button) findViewById(R.id.edit_profile2);
@@ -65,7 +89,7 @@ public class Check extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
              key=dataSnapshot.getKey();
-                Toast.makeText(Check.this,key,Toast.LENGTH_LONG).show();
+              //  Toast.makeText(Check.this,key,Toast.LENGTH_LONG).show();
 
                 FireApp newPost = dataSnapshot.getValue(FireApp.class);
                 System.out.println("name: " + newPost.name);
@@ -153,6 +177,13 @@ public class Check extends AppCompatActivity {
             }
         });
     }
+
+    public void onBackPressed()
+    {
+        startActivity(new Intent(Check.this,blog_app.class));
+    }
+
+
     public boolean onCreateOptionsMenu(Menu menu) {
         //menu resource file read kore
         getMenuInflater().inflate(R.menu.main_menu,menu);
@@ -179,6 +210,10 @@ public class Check extends AppCompatActivity {
         if(item.getItemId()==R.id.my_profile)
         {
             startActivity(new Intent(Check.this,Check.class));
+        }
+        if(item.getItemId()==R.id.donation_list)
+        {
+            startActivity(new Intent(Check.this,CollectDonate.class));
         }
         return super.onOptionsItemSelected(item);
     }

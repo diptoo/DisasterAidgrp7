@@ -3,11 +3,13 @@ package com.example.user.firebasedemo;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +52,29 @@ public class BlogSingleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_single);
+
+        BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.action_add:
+                        //Toast.makeText(BlogSingleActivity.this,"clicked",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(BlogSingleActivity.this,PostActivity.class));
+                        break;
+                    case R.id.icon_home:
+                       // Toast.makeText(BlogSingleActivity.this,"home",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(BlogSingleActivity.this,blog_app.class));
+                        break;
+                    case R.id.action_person:
+                        startActivity(new Intent(BlogSingleActivity.this,Check.class));
+                        break;
+                }
+                return true;
+            }
+        });
+
         mDatabase= FirebaseDatabase.getInstance().getReference().child("Blog");
 
         mAuth=FirebaseAuth.getInstance();
@@ -108,7 +133,7 @@ public class BlogSingleActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 // THIS FUNCTION IS FOR SELECTION OF IMAGE
-                                Toast.makeText(BlogSingleActivity.this,"dhukse",Toast.LENGTH_LONG).show();
+                                //Toast.makeText(BlogSingleActivity.this,"dhukse",Toast.LENGTH_LONG).show();
                                 Intent galleryIntent=new Intent(Intent.ACTION_GET_CONTENT); // USER K CHOOSE KORTE DAOA KON IMG SELECT KORBE
                                 galleryIntent.setType("image/*"); // ONLY IMAGES NO VIDEO
                                 startActivityForResult(galleryIntent,GALLERY_REQUEST);
@@ -142,7 +167,7 @@ public class BlogSingleActivity extends AppCompatActivity {
 
                                 }
                                 else {
-                                    Toast.makeText(BlogSingleActivity.this, "image null", Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(BlogSingleActivity.this, "image null", Toast.LENGTH_LONG).show();
                                     startActivity(new Intent(BlogSingleActivity.this,blog_app.class));
                                 }
                             }
@@ -176,6 +201,10 @@ public class BlogSingleActivity extends AppCompatActivity {
             }
         });
 
+    }
+    public void onBackPressed()
+    {
+        startActivity(new Intent(BlogSingleActivity.this,blog_app.class));
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

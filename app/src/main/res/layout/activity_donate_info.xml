@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="#F5F5F5">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,33 +28,33 @@
             android:layout_height="wrap_content"
             android:id="@+id/donator_name"
             android:layout_marginTop="8dp"
-            android:background="#004D40"
+            android:background="@drawable/button_shape"
             android:hint=" Name"
             android:padding="12dp"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/donator_address"
             android:layout_marginTop="12dp"
-            android:background="#004D40"
+            android:background="@drawable/button_shape"
             android:hint="Address"
             android:padding="12dp"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black" />
 
         <EditText
             android:id="@+id/donator_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:background="#004D40"
+            android:background="@drawable/button_shape"
             android:hint="Contact No"
             android:padding="12dp"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"/>
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="40sp"
             android:layout_marginTop="12dp"
-            android:background="#004D40"
+            android:background="@drawable/button_shape"
             android:entries="@array/donate_type"
             android:id="@+id/donate_type"
             >
@@ -89,9 +89,10 @@
             android:layout_width="match_parent"
             android:layout_height="40sp"
             android:layout_marginTop="12dp"
-            android:background="#004D40"
+            android:background="@drawable/button_shape"
             android:entries="@array/donate_method"
             android:id="@+id/donate_method"
+
             >
 
         </Spinner>
@@ -101,11 +102,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="#004D40"
+            android:background="@drawable/button_shape"
             android:hint="Amount"
             android:padding="12dp"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
 
             />
 
@@ -113,10 +114,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:id="@+id/button5"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:text="confirm"
+            android:background="@drawable/button"
             />
 
 

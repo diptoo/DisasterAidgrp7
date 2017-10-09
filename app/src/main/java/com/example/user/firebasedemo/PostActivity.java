@@ -3,6 +3,7 @@ package com.example.user.firebasedemo;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,15 +38,17 @@ public class PostActivity extends AppCompatActivity {
     private EditText mposttitle;
     private EditText mpostdesc;
     private Button msubmit;
-
+    private Button mUploadButton;
     private ProgressDialog mProgressDialog;
     private StorageReference mStorage;
     private DatabaseReference mDatabase,mDatabaseUser;
     private Uri mImageUri=null;// DIRECTORY OF DATA
     private FirebaseAuth mAuth;
     private FirebaseUser mCurrentUser;
+    private ImageView mImageView;
 
 public static final int GALLERY_REQUEST=1;//IMAGE FROM GALLERY, REQST CODE
+    private static final int CAMERA_REQUEST_CODE=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,8 @@ public static final int GALLERY_REQUEST=1;//IMAGE FROM GALLERY, REQST CODE
         mAuth=FirebaseAuth.getInstance();
         mCurrentUser=mAuth.getCurrentUser();//assign current user
         mSelectImage=(ImageButton) findViewById(R.id.imagebutton);//GALLERY IMAGE
+        mImageView=(ImageView) findViewById(R.id.imagebutton) ;
+        mUploadButton=(Button) findViewById(R.id.submit2);
         mStorage= FirebaseStorage.getInstance().getReference();//Storage a j store hobe etar jonno root directory indicate kore
         mDatabase= FirebaseDatabase.getInstance().getReference().child("Blog");//DATABASE ROOT A STORE KORBO NA AJNNE ROOT A CHILD CREATE KORLAM THN NOW ADD KORBO
         mDatabaseUser=FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentUser.getUid());//current user er id te save hobe
@@ -62,6 +68,20 @@ public static final int GALLERY_REQUEST=1;//IMAGE FROM GALLERY, REQST CODE
         mposttitle=(EditText)findViewById(R.id.posttitle); //TITLE
         mpostdesc=(EditText) findViewById(R.id.postdesc); //DESC
         msubmit=(Button) findViewById(R.id.submit);//SUBMIT
+
+
+
+        mUploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                //  intent.setType("image/*");
+                startActivityForResult(intent,CAMERA_REQUEST_CODE);
+            }
+        });
+
+
         //IMAGE SELECT A TAP KORLE KI HOBE
         mSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +181,23 @@ public static final int GALLERY_REQUEST=1;//IMAGE FROM GALLERY, REQST CODE
         //getData() is URI containing a directory of data (vnd.android.cursor.dir/*) from which to pick an item.
         //J DATA PICK KORLAM SETA mImageUri TE SAVE KORLAM
         mSelectImage.setImageURI(mImageUri); // IMAGE BUTTON A IMAGE SET KORLAM
+    }
+    else  if (requestCode==CAMERA_REQUEST_CODE && resultCode==RESULT_OK)
+    {
+        mProgressDialog.setMessage("Uploading by capture...");
+        mProgressDialog.show();
+        Uri uri=data.getData();
+        StorageReference filepath= mStorage.child("Photos").child(uri.getLastPathSegment());
+        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //Toast.makeText(UpImage.this,"Upload done",Toast.LENGTH_LONG).show();
+                mProgressDialog.dismiss();
+                @SuppressWarnings("VisibleForTests")  Uri downloadUri=taskSnapshot.getDownloadUrl();
+                Picasso.with(PostActivity.this).load(downloadUri).fit().centerCrop().into(mImageView);
+
+            }
+        });
     }
 
 

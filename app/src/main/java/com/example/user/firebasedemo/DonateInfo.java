@@ -43,7 +43,7 @@ public class DonateInfo extends AppCompatActivity {
 
         mPost_key = getIntent().getExtras().getString("blog_id");
 
-        Toast.makeText(DonateInfo.this,mPost_key,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(DonateInfo.this,mPost_key,Toast.LENGTH_SHORT).show();
 
         mDatabase.child(mPost_key).addValueEventListener(new ValueEventListener() {
             @Override
@@ -51,7 +51,7 @@ public class DonateInfo extends AppCompatActivity {
 
                 postuseruid=(String)dataSnapshot.child("uid").getValue();
 
-                Toast.makeText(DonateInfo.this,postuseruid,Toast.LENGTH_LONG).show();
+               // Toast.makeText(DonateInfo.this,postuseruid,Toast.LENGTH_LONG).show();
 
             }
 

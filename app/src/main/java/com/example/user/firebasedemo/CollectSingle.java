@@ -2,8 +2,11 @@ package com.example.user.firebasedemo;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,6 +28,30 @@ public class CollectSingle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collect_single);
+
+
+        BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.action_add:
+                       // Toast.makeText(CollectSingle.this,"clicked",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(CollectSingle.this,PostActivity.class));
+                        break;
+                    case R.id.icon_home:
+                       // Toast.makeText(BlogSingleActivity.this,"home",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(CollectSingle.this,blog_app.class));
+                        break;
+                    case R.id.action_person:
+                        startActivity(new Intent(CollectSingle.this,Check.class));
+                        break;
+                }
+                return true;
+            }
+        });
+
 
         post_donator_name = (TextView) findViewById(R.id.donator_name);
        post_donator_contact = (TextView) findViewById(R.id.donator_contact);
@@ -63,7 +90,7 @@ public class CollectSingle extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(CollectSingle.this,mPost_key,Toast.LENGTH_LONG).show();
+      //  Toast.makeText(CollectSingle.this,mPost_key,Toast.LENGTH_LONG).show();
 
         google_map=(Button) findViewById(R.id.gmap);
         don_contact=(Button) findViewById(R.id.phonecall);
@@ -78,10 +105,17 @@ public class CollectSingle extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                Toast.makeText(CollectSingle.this,"dhukse", Toast.LENGTH_LONG).show();
+                //Toast.makeText(CollectSingle.this,"dhukse", Toast.LENGTH_LONG).show();
                 intent.setData(Uri.parse("tel:"+dona_contact));
                 startActivity(intent);
             }
         });
     }
+
+    public void onBackPressed()
+    {
+        startActivity(new Intent(CollectSingle.this,CollectDonate.class));
+    }
+
+
 }

@@ -111,6 +111,10 @@ public class DonateSingleActivity extends AppCompatActivity {
 
 
     }
+    public void onBackPressed()
+    {
+        startActivity(new Intent(DonateSingleActivity.this,DonateHome.class));
+    }
 
 
 }

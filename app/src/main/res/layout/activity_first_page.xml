@@ -2,14 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/back4"
+
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="45dp"
+        >
 
         <TextView
             android:id="@+id/textView8"
@@ -20,18 +27,20 @@
             android:text="Disaster Aid"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/white"
-            android:textSize="50sp" />
+            android:textSize="50sp"
+            />
 
         <Button
             android:id="@+id/donate"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:background="#004D40"
 
-            android:layerType="software"
-            android:text="Donate"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/first_ui"
+     android:textStyle="bold"
+
+            android:text="DONATE"
             android:textColor="@android:color/white" />
 
 
@@ -48,13 +57,14 @@
 
         <Button
             android:id="@+id/collect"
-            android:layout_width="match_parent"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:background="#004D40"
-            android:text="Collect"
-            android:textColor="@android:color/white" />
-
+            android:background="@drawable/first_ui"
+            android:text="COLLECT"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
 
     </LinearLayout>

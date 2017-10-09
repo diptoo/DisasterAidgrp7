@@ -33,7 +33,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (GSA())
         {
-            Toast.makeText(MapsActivity.this,"SERVIce perfect",Toast.LENGTH_LONG).show();
+            //Toast.makeText(MapsActivity.this,"SERVIce perfect",Toast.LENGTH_LONG).show();
             setContentView(R.layout.activity_maps);
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
             initMap();
@@ -100,7 +100,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         List<Address> list=geocoder.getFromLocationName(location,1);
         Address address=list.get(0);
         String locality= address.getLocality();
-        Toast.makeText(MapsActivity.this,locality,Toast.LENGTH_LONG).show();
+//        Toast.makeText(MapsActivity.this,locality,Toast.LENGTH_LONG).show();
 
         double lat=address.getLatitude();
         double lng=address.getLongitude();

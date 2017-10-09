@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     public void iniui(){
 // Remember that you should never show the action bar if the
 // status bar is not hidden, so hide that too if necessary.
-        Intent intent = new Intent(this, Login.class);
+        Intent intent = new Intent(this, firstPage.class);
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {

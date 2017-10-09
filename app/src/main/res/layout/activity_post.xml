@@ -5,7 +5,9 @@
     android:background="@drawable/login_background">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+
+        >
     <LinearLayout
         android:id="@+id/imagebut"
         android:layout_width="match_parent"
@@ -23,6 +25,12 @@
             android:layout_height="300dp"
             android:layout_weight="0.79"
             android:src="@mipmap/add_btn" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CAPTURE IMAGE"
+            android:id="@+id/submit2"
+            />
 
         <EditText
             android:id="@+id/posttitle"

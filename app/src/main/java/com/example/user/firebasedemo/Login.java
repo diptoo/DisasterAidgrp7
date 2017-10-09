@@ -27,7 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Login extends Activity implements View.OnClickListener{
+public class Login extends AppCompatActivity implements View.OnClickListener{
 
     private EditText nEmailField;
     private EditText nPasswordField;
@@ -44,7 +44,7 @@ public class Login extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+      //  requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
@@ -67,6 +67,12 @@ public class Login extends Activity implements View.OnClickListener{
        // text.setTypeface(custom);
 
     }
+    @Override
+    public void onBackPressed()
+    {
+        startActivity(new Intent(Login.this,firstPage.class));
+    }
+
     @Override
     public void onClick(View view) {
         if(view == mLogInButton){

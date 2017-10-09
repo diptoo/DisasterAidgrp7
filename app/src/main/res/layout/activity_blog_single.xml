@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:layout_margin="20dp"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+
     >
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        >
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@+id/singleimage"
@@ -39,28 +39,49 @@
             android:text="POST DESCRIPTON GOES HERE" />
         <Button
             android:id="@+id/edit_post"
-            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:background="@drawable/button"
+android:layout_gravity="center"
             android:text="Edit post"
+            android:textColor="@color/white"
             android:visibility="invisible" />
 
         <Button
             android:id="@+id/button4"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
             android:layout_height="wrap_content"
-
+            android:background="@drawable/button"
             android:text="Remove post"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:visibility="invisible" />
 
 
 
+
+
     </LinearLayout>
-</ScrollView>
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/tw__composer_light_gray"
+        app:itemIconTint="@drawable/new_item"
+        app:itemTextColor="@drawable/new_item"
+        app:menu="@menu/bottom_menu"
+        />
 
 
 
 
 
 
-</android.support.v7.widget.CardView>
+
+</RelativeLayout>

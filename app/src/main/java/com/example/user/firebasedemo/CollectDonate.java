@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -43,6 +45,30 @@ public class CollectDonate extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collect_donate);
+
+
+        BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.action_add:
+                        // Toast.makeText(BlogSingleActivity.this,"clicked",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(CollectDonate.this,PostActivity.class));
+                        break;
+                    case R.id.icon_home:
+                        // Toast.makeText(BlogSingleActivity.this,"home",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(CollectDonate.this,blog_app.class));
+                        break;
+                    case R.id.action_person:
+                        startActivity(new Intent(CollectDonate.this,Check.class));
+                        break;
+                }
+                return true;
+            }
+        });
+
         mAuth= FirebaseAuth.getInstance();
         mAuthListener= new FirebaseAuth.AuthStateListener() {
             @Override
@@ -72,6 +98,12 @@ public class CollectDonate extends AppCompatActivity {
 
 
     }
+    public void onBackPressed()
+    {
+        startActivity(new Intent(CollectDonate.this,blog_app.class));
+    }
+
+
     protected void onStart() { //blog class
         super.onStart();
 
@@ -98,7 +130,7 @@ public class CollectDonate extends AppCompatActivity {
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(CollectDonate.this,"you clicked a view",Toast.LENGTH_LONG).show();
+                        //Toast.makeText(CollectDonate.this,"you clicked a view",Toast.LENGTH_LONG).show();
                         Intent SingleBlogIntent=new Intent(CollectDonate.this,CollectSingle.class);
                         SingleBlogIntent.putExtra("collect_id",post_key);
                         startActivity(SingleBlogIntent);
